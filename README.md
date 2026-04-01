@@ -5,6 +5,8 @@ On-chain allowance scheduling and split-billing coordination for Southeast Asian
 
 **Network:** Stellar Testnet  
 **Contract ID:** `CA4KZTR6TY56RNE47HT6GFPYE32MFGLVGTGT2FPNNBD74MHZ2TJGICNG`  
+**Screenshot of Deployed Contract:**
+<img width="1918" height="1019" alt="Deployed Contract Screenshot" src="https://github.com/user-attachments/assets/c3384bdb-6998-4561-9961-62112edf08c8" />
 **Soroban RPC URL:** `https://soroban-testnet.stellar.org`
 
 ### View on Stellar Explorer
