@@ -13,6 +13,15 @@ On-chain allowance scheduling and split-billing coordination for Southeast Asian
 
 **Note:** The same contract handles both allowance scheduling and split billing functionality. Legacy environment variable names (`VITE_ALLOWANCE_CONTRACT_ID`, `VITE_SPLIT_CONTRACT_ID`) point to this same contract ID for backwards compatibility.
 
+## WebApp Deployment
+**Deployed Website:** https://campusflow-stellar-rho.vercel.app
+**Screenshot of UI:**
+<img width="1845" height="889" alt="image" src="https://github.com/user-attachments/assets/ddc50a6e-6b5e-49ce-ac4f-6d4cf17e803d" />
+<img width="1855" height="881" alt="image" src="https://github.com/user-attachments/assets/05ba98aa-94cc-4574-97f8-60c607ad6650" />
+<img width="1840" height="890" alt="image" src="https://github.com/user-attachments/assets/1044f7ca-2591-4d7b-91b6-88392b76b8c9" />
+<img width="1842" height="883" alt="image" src="https://github.com/user-attachments/assets/16700014-00d7-4fb4-ae2a-35e85e08dc23" />
+<img width="1831" height="887" alt="image" src="https://github.com/user-attachments/assets/6d8ea36b-24b2-4f5b-8fcf-560e8437713c" />
+<img width="1837" height="884" alt="image" src="https://github.com/user-attachments/assets/a0e68c0f-8e61-456c-9d86-4c9370da2e57" />
 
 ## Features & Web Interface
 
