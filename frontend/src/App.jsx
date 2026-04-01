@@ -375,15 +375,55 @@ export default function App() {
               <NetworkSelector />
 
               {connectedKey ? (
-                <div className="wallet-pill">
-                  <span className="dot" />
-                  <span>{walletShort}</span>
+                <div 
+                  className="wallet-pill"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    padding: "8px 14px",
+                    background: "rgba(76,175,80,0.1)",
+                    border: "1px solid rgba(76,175,80,0.3)",
+                    borderRadius: "20px",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(76,175,80,0.15)";
+                    e.currentTarget.style.borderColor = "rgba(76,175,80,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(76,175,80,0.1)";
+                    e.currentTarget.style.borderColor = "rgba(76,175,80,0.3)";
+                  }}
+                  title={connectedKey}
+                >
+                  <span className="dot" style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "#4CAF50",
+                    display: "inline-block",
+                  }} />
+                  <span style={{ fontSize: "13px", fontWeight: "600" }}>{walletShort}</span>
+                  <span style={{ fontSize: "11px", opacity: 0.7 }}>✓</span>
                 </div>
               ) : (
                 <button
                   id="btn-connect-nav"
                   onClick={handleConnect}
                   disabled={connectLoading}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "6px",
+                    border: "none",
+                    background: "#2196F3",
+                    color: "white",
+                    cursor: connectLoading ? "not-allowed" : "pointer",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    opacity: connectLoading ? 0.7 : 1,
+                  }}
                 >
                   {connectLoading ? (
                     <><Spinner /> Connecting…</>
@@ -427,48 +467,148 @@ export default function App() {
           <div
             id="wallet-banner"
             className={connectedKey ? "connected" : ""}
+            style={{
+              background: connectedKey ? "linear-gradient(135deg, rgba(76,175,80,0.1), rgba(56,142,60,0.1))" : "linear-gradient(135deg, rgba(33,150,243,0.1), rgba(21,101,192,0.1))",
+              border: connectedKey ? "1px solid rgba(76,175,80,0.3)" : "1px solid rgba(33,150,243,0.3)",
+              borderRadius: "12px",
+              padding: "20px",
+              marginTop: "20px",
+            }}
           >
             <div className="banner-left">
               <div className={`banner-icon${connectedKey ? " green" : ""}`}>
                 {connectedKey ? "✅" : "🔗"}
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <div className="banner-title">
                   {connectedKey
                     ? "Wallet Connected"
                     : "Connect Your Freighter Wallet"}
                 </div>
-                <div className="banner-sub">
-                  {connectedKey ? (
-                    <>
-                      Connected as{" "}
-                      <span className="addr">
-                        {connectedKey.slice(0, 6)}...{connectedKey.slice(-6)}
-                      </span>{" "}
-                      · Stellar Testnet ·{" "}
-                      <span className="addr" style={{ fontSize: "0.7rem", opacity: 0.75 }}>
-                        CA4KZTR6…JGICNG
+                {connectedKey ? (
+                  <div className="banner-sub">
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px", flexWrap: "wrap" }}>
+                      <span style={{ 
+                        background: "rgba(76,175,80,0.2)",
+                        color: "#4CAF50",
+                        padding: "4px 8px",
+                        borderRadius: "6px",
+                        fontSize: "12px",
+                        fontWeight: "600",
+                      }}>
+                        ✓ Active
                       </span>
-                    </>
-                  ) : (
-                    "Link your Stellar wallet to interact with the Soroban contract on Testnet."
-                  )}
-                </div>
+                      <span className="addr" style={{ fontSize: "13px" }}>
+                        {connectedKey.slice(0, 8)}...{connectedKey.slice(-8)}
+                      </span>
+                      <span style={{ fontSize: "12px", opacity: 0.7 }}>·</span>
+                      <span style={{ fontSize: "12px", opacity: 0.8 }}>Stellar Testnet</span>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginTop: "12px" }}>
+                      <div style={{ 
+                        background: "rgba(0,0,0,0.05)", 
+                        padding: "8px 12px",
+                        borderRadius: "6px",
+                      }}>
+                        <div style={{ fontSize: "11px", opacity: 0.7, marginBottom: "4px" }}>Available Balance</div>
+                        <div style={{ fontSize: "14px", fontWeight: "600" }}>{balanceDisplay}</div>
+                      </div>
+                      <div style={{ 
+                        background: "rgba(0,0,0,0.05)", 
+                        padding: "8px 12px",
+                        borderRadius: "6px",
+                      }}>
+                        <div style={{ fontSize: "11px", opacity: 0.7, marginBottom: "4px" }}>Contract ID</div>
+                        <div style={{ fontSize: "12px", fontWeight: "600", fontFamily: "monospace", opacity: 0.8 }}>
+                          CA4KZTR6…JGICNG
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="banner-sub">
+                    Link your Stellar wallet to interact with the Soroban contract on Testnet.
+                  </div>
+                )}
               </div>
             </div>
-            {!connectedKey && (
-              <button
-                id="btn-connect-banner"
-                onClick={handleConnect}
-                disabled={connectLoading}
-              >
-                {connectLoading ? (
-                  <><Spinner /> Connecting…</>
-                ) : (
-                  "Connect Freighter"
-                )}
-              </button>
-            )}
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+              {connectedKey ? (
+                <>
+                  <button
+                    onClick={handleConnect}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: "6px",
+                      border: "1px solid rgba(76,175,80,0.3)",
+                      background: "rgba(76,175,80,0.1)",
+                      color: "#2E7D32",
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      transition: "all 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = "rgba(76,175,80,0.2)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = "rgba(76,175,80,0.1)";
+                    }}
+                  >
+                    Switch Wallet
+                  </button>
+                  <button
+                    onClick={() => {
+                      setConnectedKey(null);
+                      setWalletShort("");
+                      showToast("Wallet disconnected", "success");
+                    }}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: "6px",
+                      border: "1px solid rgba(244,67,54,0.3)",
+                      background: "rgba(244,67,54,0.1)",
+                      color: "#C62828",
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      transition: "all 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = "rgba(244,67,54,0.2)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = "rgba(244,67,54,0.1)";
+                    }}
+                  >
+                    Disconnect
+                  </button>
+                </>
+              ) : (
+                <button
+                  id="btn-connect-banner"
+                  onClick={handleConnect}
+                  disabled={connectLoading}
+                  style={{
+                    padding: "8px 20px",
+                    borderRadius: "6px",
+                    border: "none",
+                    background: "#2196F3",
+                    color: "white",
+                    cursor: connectLoading ? "not-allowed" : "pointer",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    opacity: connectLoading ? 0.7 : 1,
+                  }}
+                >
+                  {connectLoading ? (
+                    <><Spinner /> Connecting…</>
+                  ) : (
+                    "Connect Freighter"
+                  )}
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="hero-stats">
@@ -1172,17 +1312,31 @@ export default function App() {
           </div>
 
           <div className="notif-list">
-            {notifications.map((n, i) => (
-              <div className="notif-card" key={i}>
-                <div className={`notif-icon ${n.color}`}>{n.icon}</div>
-                <div className={`notif-dot ${n.color}`} />
-                <div className="notif-body">
-                  <div className="notif-title">{n.title}</div>
-                  <div className="notif-desc">{n.desc}</div>
-                </div>
-                <span className="notif-time">{n.time}</span>
+            {notifications.length === 0 ? (
+              <div style={{
+                padding: "40px 20px",
+                textAlign: "center",
+                color: "var(--text-muted)",
+              }}>
+                <div style={{ fontSize: "48px", marginBottom: "12px" }}>📭</div>
+                <p style={{ fontSize: "14px" }}>No activity yet</p>
+                <p style={{ fontSize: "12px", marginTop: "8px" }}>
+                  Your on-chain transactions will appear here
+                </p>
               </div>
-            ))}
+            ) : (
+              notifications.map((n, i) => (
+                <div className="notif-card" key={i}>
+                  <div className={`notif-icon ${n.color}`}>{n.icon}</div>
+                  <div className={`notif-dot ${n.color}`} />
+                  <div className="notif-body">
+                    <div className="notif-title">{n.title}</div>
+                    <div className="notif-desc">{n.desc}</div>
+                  </div>
+                  <span className="notif-time">{n.time}</span>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
