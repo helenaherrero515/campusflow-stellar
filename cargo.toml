@@ -1,0 +1,46 @@
+[package]
+name = "campusflow_wallet"
+version = "0.1.0"
+edition = "2021"
+description = "On-chain allowance scheduling and split-billing coordination for SEA university students, built on Stellar Soroban."
+license = "MIT"
+authors = ["CampusFlow Team"]
+repository = "https://github.com/campusflow/campusflow-wallet"
+
+# ── Library target ────────────────────────────────────────────────────────────
+# cdylib produces the .wasm file deployed to Stellar.
+# rlib allows the crate to be used as a Rust library (required for test harness).
+[lib]
+name = "campusflow_wallet"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+# ── Runtime dependencies ──────────────────────────────────────────────────────
+[dependencies]
+soroban-sdk = { version = "21.0.0" }
+
+# ── Development / test dependencies ──────────────────────────────────────────
+# testutils enables Env::default(), mock_all_auths(), and Address::generate()
+# which are required by all three contract tests.
+[dev-dependencies]
+soroban-sdk = { version = "21.0.0", features = ["testutils"] }
+
+# ── Release profile — optimised for Wasm output ───────────────────────────────
+# opt-level = "z" minimises binary size (important for Soroban gas limits).
+# lto = true enables link-time optimisation for further size reduction.
+# codegen-units = 1 allows the most aggressive inlining across crate boundaries.
+# strip = "symbols" removes debug symbols from the final .wasm artefact.
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true
+
+# ── Release-with-debug-info profile — useful during local inspection ──────────
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
