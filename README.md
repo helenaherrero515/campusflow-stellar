@@ -15,6 +15,9 @@ On-chain allowance scheduling and split-billing coordination for Southeast Asian
 
 **Note:** The same contract handles both allowance scheduling and split billing functionality. Legacy environment variable names (`VITE_ALLOWANCE_CONTRACT_ID`, `VITE_SPLIT_CONTRACT_ID`) point to this same contract ID for backwards compatibility.
 
+## 📖 Read My Journal
+**I wrote about my journey, learnings, and projects on Medium. You can follow along here:** https://medium.com/@helenaherrero515/building-campusflow-making-dorm-finances-effortless-with-smart-contracts-3c55a36cc5eb
+
 ## WebApp Deployment
 **Deployed Website:** https://campusflow-stellar-rho.vercel.app
 **Screenshot of UI:**
